@@ -60,7 +60,7 @@ const SlotMachines = () => {
 
   return (
     <Fragment>
-      <div className="flex flex-row justify-center mt-[120px]">
+      <div className="flex flex-row justify-center mt-[120px] div-elements">
         <div className="mx-1.5">
           <WheelList
             listAward={listAward}

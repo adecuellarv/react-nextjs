@@ -21,6 +21,15 @@
       font-style: normal;
       font-variation-settings: 'MORF' 15, 'SHLN' 50;
       text-align: center;
+
+      @media (max-width: 600px) {
+        font-size: 34px;
+      }
     }
+
+    @media (max-width: 768px) {
+      width: 90%;
+    }
+    
   }
 }
