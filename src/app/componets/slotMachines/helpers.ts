@@ -10,3 +10,8 @@ export const getArrayAwards = () => {
   }
   return newArray
 }
+
+export const allEqual = (arr: number[]) => {
+  const filteredArr = arr.filter(item => item !== undefined);
+  return filteredArr.every(item => item === filteredArr[0]);
+};

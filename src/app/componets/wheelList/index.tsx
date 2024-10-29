@@ -8,9 +8,10 @@ interface WheelListProps {
   listAward: number[];
   startGame: boolean;
   simulateWin: boolean;
+  addCorrect: any;
 }
 
-const WheelList: React.FC<WheelListProps> = ({ listAward, startGame, simulateWin }) => {
+const WheelList: React.FC<WheelListProps> = ({ listAward, startGame, simulateWin, addCorrect }) => {
   const [awardSelected, setAwardSelected] = useState<number>(0);
   const [correct, setCorrect] = useState<number>(3);
 
@@ -20,9 +21,11 @@ const WheelList: React.FC<WheelListProps> = ({ listAward, startGame, simulateWin
         const item = selectItem(listAward);
         setCorrect(item);
         setAwardSelected(item);
+        addCorrect(item);
       } else {
-        setCorrect(4);
-        setAwardSelected(4);
+        setCorrect(3);
+        setAwardSelected(3);
+        addCorrect(3);
       }
     }
   }, [startGame, listAward]);
