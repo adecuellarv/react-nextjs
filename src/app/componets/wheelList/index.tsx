@@ -1,22 +1,29 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Award from "../award";
 import { selectItem, getNewPosition, getDisplayedAwards } from "./helpers";
+import { TIMER, SPEED } from "@/app/common/constants";
 import './styles.scss';
 
 interface WheelListProps {
   listAward: number[];
   startGame: boolean;
+  simulateWin: boolean;
 }
 
-const WheelList: React.FC<WheelListProps> = ({ listAward, startGame }) => {
+const WheelList: React.FC<WheelListProps> = ({ listAward, startGame, simulateWin }) => {
   const [awardSelected, setAwardSelected] = useState<number>(0);
   const [correct, setCorrect] = useState<number>(3);
 
   useEffect(() => {
     if (startGame) {
-      const item = selectItem(listAward);
-      setCorrect(item);
-      setAwardSelected(item);
+      if (!simulateWin) {
+        const item = selectItem(listAward);
+        setCorrect(item);
+        setAwardSelected(item);
+      } else {
+        setCorrect(4);
+        setAwardSelected(4);
+      }
     }
   }, [startGame, listAward]);
 
@@ -24,12 +31,12 @@ const WheelList: React.FC<WheelListProps> = ({ listAward, startGame }) => {
     if (listAward.length && startGame) {
       const intervalId = setInterval(() => {
         setAwardSelected((prevSelected) => getNewPosition(listAward, prevSelected));
-      }, 200);
+      }, SPEED);
 
       const timeoutId = setTimeout(() => {
         clearInterval(intervalId);
         setAwardSelected(correct);
-      }, 5000);
+      }, TIMER);
 
       return () => {
         clearInterval(intervalId);
@@ -41,7 +48,7 @@ const WheelList: React.FC<WheelListProps> = ({ listAward, startGame }) => {
   return (
     <Fragment>
       <div className="flex justify-center items-center">
-        <div className="relative h-[243px] w-[150px] overflow-hidden flex flex-col items-center slot-machine">
+        <div className="relative h-[332px] w-[150px] overflow-hidden flex flex-col items-center slot-machine">
           {!!listAward.length && getDisplayedAwards(listAward, awardSelected).map(({ value, index }) => (
             <Award
               value={value}

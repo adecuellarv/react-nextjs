@@ -1,19 +1,29 @@
 import React, { Fragment, useEffect, useState } from "react";
 import WheelList from "../wheelList";
 import { getArrayAwards } from "./helpers";
+import { TIMER, ATTEMPTS_BEFORE_TO_SHOW_WIN } from "@/app/common/constants";
 import './styles.scss';
 
+let attempts = 0;
 const SlotMachines = () => {
   const [listAward, setListAward] = useState<number[]>([]);
   const [startGame, setStartGame] = useState(false);
+  const [simulateWin, setSimulateWin] = useState(false);
 
   const handleStartGame = () => {
     if (!startGame) {
       setStartGame(true);
-
       setTimeout(() => {
         setStartGame(false);
-      }, 6000);
+      }, TIMER);
+
+      if (attempts === ATTEMPTS_BEFORE_TO_SHOW_WIN) {
+        setSimulateWin(true);
+        attempts = 0;
+      } else {
+        setSimulateWin(false);
+        attempts++;
+      }
     }
   }
 
@@ -29,18 +39,21 @@ const SlotMachines = () => {
           <WheelList
             listAward={listAward}
             startGame={startGame}
+            simulateWin={simulateWin}
           />
         </div>
         <div className="mx-1.5">
           <WheelList
             listAward={listAward}
             startGame={startGame}
+            simulateWin={simulateWin}
           />
         </div>
         <div className="mx-1.5">
           <WheelList
             listAward={listAward}
             startGame={startGame}
+            simulateWin={simulateWin}
           />
         </div>
       </div>
