@@ -1,62 +1,60 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Award from "../award";
-import { selectItem, getNewPosition } from "./helpers";
+import { selectItem, getNewPosition, getDisplayedAwards } from "./helpers";
+import './styles.scss';
 
 interface WheelListProps {
-  listAward: number[]
-  startGame: boolean
+  listAward: number[];
+  startGame: boolean;
 }
 
 const WheelList: React.FC<WheelListProps> = ({ listAward, startGame }) => {
-  const [awardSelected, setAwardSelected] = useState<number>(3);
+  const [awardSelected, setAwardSelected] = useState<number>(0);
   const [correct, setCorrect] = useState<number>(3);
 
   useEffect(() => {
     if (startGame) {
-      setCorrect(selectItem(listAward))
+      const item = selectItem(listAward);
+      setCorrect(item);
+      setAwardSelected(item);
     }
   }, [startGame, listAward]);
 
   useEffect(() => {
-    if (awardSelected && listAward.length) {
+    if (listAward.length && startGame) {
       const intervalId = setInterval(() => {
-        const currentCardIndex = getNewPosition(listAward, awardSelected);
-        console.log('#awardSelected', awardSelected, '#currentCardIndex', currentCardIndex);
-        setAwardSelected(currentCardIndex);
-      }, 1000);
+        setAwardSelected((prevSelected) => getNewPosition(listAward, prevSelected));
+      }, 200);
 
-      // Destruir el intervalo después de 6 segundos
       const timeoutId = setTimeout(() => {
         clearInterval(intervalId);
-      }, 6000);
+        setAwardSelected(correct);
+      }, 5000);
 
-      // Limpiar ambos intervalos en el cleanup
       return () => {
         clearInterval(intervalId);
         clearTimeout(timeoutId);
       };
     }
-  }, [awardSelected, listAward]);
-
+  }, [listAward, startGame, correct]);
 
   return (
     <Fragment>
-      <div>
-        {!!listAward.length && listAward.map((i, key) => {
-          return (
+      <div className="we-card-container">
+        <div className="slot-machine">
+          {!!listAward.length && getDisplayedAwards(listAward, awardSelected).map(({ value, index }) => (
             <Award
-              value={i}
-              key={key}
+              value={value}
+              key={index}
               selected={awardSelected}
-              position={key}
+              position={index}
               correct={correct}
             />
-          )
-        })
-        }
+          ))}
+        </div>
       </div>
     </Fragment>
-  )
+  );
 };
 
 export default WheelList;

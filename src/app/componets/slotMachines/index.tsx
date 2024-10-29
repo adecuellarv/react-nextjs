@@ -47,7 +47,10 @@ const SlotMachines = () => {
         </div>
       </div>
       <div>
-        <button onClick={handleStartGame}>Jugar</button>
+        <button onClick={handleStartGame} style={{
+          position: 'absolute',
+          background: 'orange'
+        }}>Jugar</button>
       </div>
     </Fragment>
   )
