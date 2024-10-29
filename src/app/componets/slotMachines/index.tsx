@@ -23,29 +23,31 @@ const SlotMachines = () => {
 
   return (
     <Fragment>
+      <div className="flex flex-row justify-center">
+        <div>
+          <h1>Columna 1</h1>
+          <WheelList
+            listAward={listAward}
+            startGame={startGame}
+          />
+        </div>
+        <div>
+          <h1>Columna 2</h1>
+          <WheelList
+            listAward={listAward}
+            startGame={startGame}
+          />
+        </div>
+        <div>
+          <h1>Columna 3</h1>
+          <WheelList
+            listAward={listAward}
+            startGame={startGame}
+          />
+        </div>
+      </div>
       <div>
         <button onClick={handleStartGame}>Jugar</button>
-      </div>
-      <div>
-        <h1>Columna 1</h1>
-        <WheelList
-          listAward={listAward}
-          startGame={startGame}
-        />
-      </div>
-      <div>
-        <h1>Columna 2</h1>
-        <WheelList
-          listAward={listAward}
-          startGame={startGame}
-        />
-      </div>
-      <div>
-        <h1>Columna 3</h1>
-        <WheelList
-          listAward={listAward}
-          startGame={startGame}
-        />
       </div>
     </Fragment>
   )

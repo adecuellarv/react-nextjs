@@ -12,7 +12,7 @@ const WheelList: React.FC<WheelListProps> = ({ listAward, startGame }) => {
 
   useEffect(() => {
     if (startGame) setAwardSelected(selectItem(listAward))
-    else if (listAward?.length) setAwardSelected(Math.round(listAward?.length / 2))
+    else if (listAward?.length) setAwardSelected(Math.round((listAward?.length / 2) - 1))
   }, [startGame, listAward]);
 
   return (

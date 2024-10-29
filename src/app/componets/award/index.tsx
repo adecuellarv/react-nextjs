@@ -9,7 +9,7 @@ const Award: React.FC<AwardProps> = ({ value, selected }) => {
   return (
     <Fragment>
       <div>
-        {value} - selected: {selected}
+        <h1 className="text-white">{value} - selected: {selected}</h1>
       </div>
     </Fragment>
   )
