@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import WheelList from "../wheelList";
 import { getArrayAwards } from "./helpers";
+import './styles.scss';
 
 const SlotMachines = () => {
   const [listAward, setListAward] = useState<number[]>([]);
@@ -23,34 +24,28 @@ const SlotMachines = () => {
 
   return (
     <Fragment>
-      <div className="flex flex-row justify-center">
+      <div className="flex flex-row justify-center mt-[120px]">
         <div className="mx-1.5">
-          <h1>Columna 1</h1>
           <WheelList
             listAward={listAward}
             startGame={startGame}
           />
         </div>
         <div className="mx-1.5">
-          <h1>Columna 2</h1>
           <WheelList
             listAward={listAward}
             startGame={startGame}
           />
         </div>
         <div className="mx-1.5">
-          <h1>Columna 3</h1>
           <WheelList
             listAward={listAward}
             startGame={startGame}
           />
         </div>
       </div>
-      <div>
-        <button onClick={handleStartGame} style={{
-          position: 'absolute',
-          background: 'orange'
-        }}>Jugar</button>
+      <div className="text-center mt-20 cursor-pointer">
+        <button onClick={handleStartGame} className="px-5  b bg-stone-50 rounded-md">Jugar</button>
       </div>
     </Fragment>
   )

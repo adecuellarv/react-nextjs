@@ -40,8 +40,8 @@ const WheelList: React.FC<WheelListProps> = ({ listAward, startGame }) => {
 
   return (
     <Fragment>
-      <div className="we-card-container">
-        <div className="slot-machine">
+      <div className="flex justify-center items-center">
+        <div className="relative h-[243px] w-[150px] overflow-hidden flex flex-col items-center slot-machine">
           {!!listAward.length && getDisplayedAwards(listAward, awardSelected).map(({ value, index }) => (
             <Award
               value={value}

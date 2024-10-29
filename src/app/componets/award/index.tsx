@@ -8,12 +8,12 @@ interface AwardProps {
   correct: number;
 }
 
-const Award: React.FC<AwardProps> = ({ value, position, selected, correct }) => {
+const Award: React.FC<AwardProps> = ({ value, position, selected }) => {
   return (
     <Fragment>
       <div className={`award ${selected === position ? 'selected' : ''}`}>
         <div className={`award-content ${selected === position ? 'animate' : ''}`}>
-          <h1 className="text-black">{value} - correct: {correct}</h1>
+          <h1 className="text-black">{value}</h1>
         </div>
       </div>
     </Fragment>
