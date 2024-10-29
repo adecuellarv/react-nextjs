@@ -15,8 +15,6 @@ const WheelList: React.FC<WheelListProps> = ({ listAward, startGame }) => {
     else if (listAward?.length) setAwardSelected(Math.round(listAward?.length / 2))
   }, [startGame, listAward]);
 
-  console.log('#awardSelected', awardSelected)
-
   return (
     <Fragment>
       <div>
@@ -25,6 +23,7 @@ const WheelList: React.FC<WheelListProps> = ({ listAward, startGame }) => {
             <Award
               value={i}
               key={key}
+              selected={awardSelected}
             />
           )
         })
