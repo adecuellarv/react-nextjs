@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Award from "../award";
-import { selectItem } from "./helpers";
+import { selectItem, getNewPosition } from "./helpers";
 
 interface WheelListProps {
   listAward: number[]
@@ -8,12 +8,36 @@ interface WheelListProps {
 }
 
 const WheelList: React.FC<WheelListProps> = ({ listAward, startGame }) => {
-  const [awardSelected, setAwardSelected] = useState<number>();
+  const [awardSelected, setAwardSelected] = useState<number>(3);
+  const [correct, setCorrect] = useState<number>(3);
 
   useEffect(() => {
-    if (startGame) setAwardSelected(selectItem(listAward))
-    else if (listAward?.length) setAwardSelected(Math.round((listAward?.length / 2) - 1))
+    if (startGame) {
+      setCorrect(selectItem(listAward))
+    }
   }, [startGame, listAward]);
+
+  useEffect(() => {
+    if (awardSelected && listAward.length) {
+      const intervalId = setInterval(() => {
+        const currentCardIndex = getNewPosition(listAward, awardSelected);
+        console.log('#awardSelected', awardSelected, '#currentCardIndex', currentCardIndex);
+        setAwardSelected(currentCardIndex);
+      }, 1000);
+
+      // Destruir el intervalo después de 6 segundos
+      const timeoutId = setTimeout(() => {
+        clearInterval(intervalId);
+      }, 6000);
+
+      // Limpiar ambos intervalos en el cleanup
+      return () => {
+        clearInterval(intervalId);
+        clearTimeout(timeoutId);
+      };
+    }
+  }, [awardSelected, listAward]);
+
 
   return (
     <Fragment>
@@ -24,6 +48,8 @@ const WheelList: React.FC<WheelListProps> = ({ listAward, startGame }) => {
               value={i}
               key={key}
               selected={awardSelected}
+              position={key}
+              correct={correct}
             />
           )
         })
