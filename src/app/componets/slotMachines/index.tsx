@@ -86,7 +86,7 @@ const SlotMachines = () => {
           />
         </div>
       </div>
-      <div className="text-center mt-20 cursor-pointer">
+      <div className="text-center mt-[40px] cursor-pointer">
         <button onClick={handleStartGame} className="px-5 bg-stone-50 rounded-md btn-play">Jugar</button>
       </div>
       <div className="absolute top-2 right-2 ">
